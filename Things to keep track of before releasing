@@ -1,0 +1,4 @@
+
+The database folder has been chosen to be 'C:\sqlite\db\pythonsqlite.db' , I created this folder manually
+for this version but it will give an error if the folder 'C:\sqlite\db' did not exist or created manually.
+

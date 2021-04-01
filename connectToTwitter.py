@@ -1,0 +1,9 @@
+
+def connect():
+    CONSUMER_KEY = input('CONSUMER_KEY:')
+    CONSUMER_SECRET = input('CONSUMER_SECRET:')
+    ACCESS_KEY = input('ACCESS_KEY:')
+    ACCESS_SECRET = input('ACCESS_SECRET:')
+
+    return [CONSUMER_KEY, CONSUMER_SECRET, ACCESS_KEY, ACCESS_SECRET]
+

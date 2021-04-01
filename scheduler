@@ -1,0 +1,5 @@
+4/1/2021
+wrote getTweets which conencts with Twitter and gets 200 tweet ids and puts them in sqlite db
+
+5/1/2021
+write Interface to get names of Leaders and their political parties
