@@ -16,7 +16,7 @@ db = createDatabase.createCountrydb(country, databseLocation) #Done
 TwitterConnection = connectToTwitter.connect2() #Done
 leaderNames = getLeaderNames.getNames() #Done
 getTweets.getTweets(TwitterConnection, leaderNames, db) #Done
-getRetweeters.getRetweeters(TwitterConnection, leaderNames, db)
+getRetweeters.getRetweeters(TwitterConnection, leaderNames, db) #Done
 crawlFriends.crawl(credentials, databseLocation)
 getSeedProfiles = ()
 count = 0
