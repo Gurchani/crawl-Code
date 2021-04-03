@@ -48,16 +48,17 @@ def getEachTweets(id, client):
                 if maxId > idVal or maxId == 0:
                     maxId = idVal
         else:
+            print(response2.status)
             print(id)
             print(len(gatheredTweets))
             #gatheredTweets.append(tweets)
             return gatheredTweets
     return gatheredTweets
 
-def getTweets(credentials, leaderNames, database):
+def getTweets(TwitterClient, leaderNames, database):
     for leader in leaderNames:
         createDatabase.createTweetIdtab(leader, database)
-        TwitterClient = connectToTwitter(credentials)
+        #TwitterClient = connectToTwitter(credentials)
         requestTweets = getEachTweets(leader, TwitterClient)
         print(requestTweets[0])
         for k in requestTweets:

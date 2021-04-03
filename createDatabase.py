@@ -11,8 +11,10 @@ def createTweetIdtab(leader, database):
 
 
 
-def createRetweetertab(leader):
-    pass
+def createRetweetertab(leader, database):
+    queryText = 'Create table IF NOT EXISTS ' + str(leader) + 'retweeters (tweetId BIGINT,' \
+                                                              'retweeterId BIGINT NOT NULL)'
+    database.execute(queryText)
 
 
 def createNetworkGraphtab(country):

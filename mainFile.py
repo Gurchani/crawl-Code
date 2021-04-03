@@ -13,10 +13,10 @@ import calculateReferanceScore
 import createDatabase
 
 db = createDatabase.createCountrydb(country, databseLocation) #Done
-credentials = connectToTwitter.connect() #Done
+TwitterConnection = connectToTwitter.connect2() #Done
 leaderNames = getLeaderNames.getNames() #Done
-getTweets.getTweets(credentials, leaderNames, db) #Done
-getRetweeters.getRetweeters(credentials, leaderNames, databseLocation)
+getTweets.getTweets(TwitterConnection, leaderNames, db) #Done
+getRetweeters.getRetweeters(TwitterConnection, leaderNames, db)
 crawlFriends.crawl(credentials, databseLocation)
 getSeedProfiles = ()
 count = 0
