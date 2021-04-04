@@ -14,7 +14,7 @@ apiVersion1Call = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
 
 
-def getEachTweets(id, client):
+def getEachTweets(id):
     gatheredTweets = []
     cursor = 0
     maxId = 0
@@ -26,7 +26,8 @@ def getEachTweets(id, client):
         else:
             recentTweets = apiVersion1Call + "?cursor=" + str(cursor) + "&screen_name=" + str(
                 id) + "&count=200&include_rts=1"
-        response2, data2 = client.request(recentTweets)
+        global TwitterClient
+        response2, data2 = TwitterClient.request(recentTweets)
         tweets = json.loads(data2)
         #print(response2.status)
         #if len(tweets) < 150:
@@ -42,6 +43,8 @@ def getEachTweets(id, client):
                 idVal = k['id']
                 if maxId > idVal or maxId == 0:
                     maxId = idVal
+        elif response2.status == 429:
+            TwitterClient = connectToTwitter.connect2()
         else:
             print(response2.status)
             print(id)
@@ -53,8 +56,9 @@ def getEachTweets(id, client):
 def getTweets(leaderNames, database):
     for leader in leaderNames:
         createDatabase.createTweetIdtab(leader, database)
-        TwitterClient = connectToTwitter.connect3()
-        requestTweets = getEachTweets(leader, TwitterClient)
+        global TwitterClient
+        TwitterClient = connectToTwitter.connect2()
+        requestTweets = getEachTweets(leader)
         print(requestTweets[0])
         for k in requestTweets:
             print(k.get('id'))

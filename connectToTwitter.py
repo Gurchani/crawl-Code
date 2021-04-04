@@ -2,15 +2,6 @@
 import oauth2 as oauth
 import random
 
-def readAuthenticationFile():
-    filePath = input('Where is the file:')
-    v = open()
-    global Authentications
-    Authentications = list(v.read(filePath))
-
-
-
-
 
 def connectToTwitter(credentials):
     consumer = oauth.Consumer(key=credentials[0], secret=credentials[1])
@@ -24,6 +15,7 @@ def getNewAuthetication():
 
 def connect3():
     keys = getNewAuthetication()
+    print(keys)
     client = connectToTwitter([keys[0], keys[1], keys[2], keys[3]])
     return client
 
