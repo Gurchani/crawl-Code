@@ -13,8 +13,10 @@ def Retweeters(TwitterConnection, tweet):
     retweeters = json.loads(data2)
     if response2.status == 200:
         return retweeters
+    elif response2.status == 429:
+        print('Met the 15min Authentication Limit')
     else:
-        print('Did not get retweeters from Twitter for the following code')
+        print('There is some problem, read the following Twitter error code:')
         print(response2.status)
 
 

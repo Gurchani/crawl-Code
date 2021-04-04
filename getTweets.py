@@ -4,6 +4,7 @@ import oauth2 as oauth
 import json
 import createDatabase
 import insertIntoDb
+import connectToTwitter
 import unicodedata
 import pymysql
 
@@ -11,12 +12,6 @@ import pymysql
 apiVersion2Call = 'https://api.twitter.com/2/users/:id/tweets'
 apiVersion1Call = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
-
-def connectToTwitter(credentials):
-    consumer = oauth.Consumer(key=credentials[0], secret=credentials[1])
-    access_token = oauth.Token(key=credentials[2], secret=credentials[3])
-    client = oauth.Client(consumer, access_token)
-    return client
 
 
 def getEachTweets(id, client):
@@ -55,10 +50,10 @@ def getEachTweets(id, client):
             return gatheredTweets
     return gatheredTweets
 
-def getTweets(TwitterClient, leaderNames, database):
+def getTweets(leaderNames, database):
     for leader in leaderNames:
         createDatabase.createTweetIdtab(leader, database)
-        #TwitterClient = connectToTwitter(credentials)
+        TwitterClient = connectToTwitter.connect3()
         requestTweets = getEachTweets(leader, TwitterClient)
         print(requestTweets[0])
         for k in requestTweets:
