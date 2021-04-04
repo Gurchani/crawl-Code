@@ -28,7 +28,11 @@ def getRetweeters(leaderNames, db):
     TwitterClient = connectToTwitter.connect2()
     for i in leaderNames:
         createDatabase.createRetweetertab(i, db)
+        counter = 0 #Remove
         for k in getTweets(i, db):
+            counter = counter + 1 #Remove
+            if counter > 20: #Remove
+                break        #Remove
             retweeters = Retweeters(k)
             if retweeters is not None:
                 insertIntoDb.insertRetweeters(str(k[0]), retweeters, i, db)

@@ -14,6 +14,6 @@ def create_connection(db_file):
             return conn
 
 connection = create_connection("C:\sqlite\db\Pakistan.db")
-Query = ('Select tweetId, retweeterId from mlp_officielretweeters')
+Query = ('Select * from mlp_officielretweeterFreq')
 for i in connection.execute(Query):
     print(i)
