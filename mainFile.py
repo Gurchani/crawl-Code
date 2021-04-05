@@ -15,10 +15,10 @@ import  processRetweeters
 
 db = createDatabase.createCountrydb(country, databseLocation) #Done
 #TwitterConnection = connectToTwitter.connect2() #Done
-leaderNames = getLeaderNames.getNames() #Done
+leaderNames, parties = getLeaderNames.getNames() #Done
 getTweets.getTweets(leaderNames, db) #Done
-getRetweeters.getRetweeters(leaderNames, db) #Done
-processRetweeters.process(leaderNames, db)
+getRetweeters.getRetweeters(leaderNames, parties, db) #Done
+processRetweeters.process(leaderNames, parties, db)
 crawlFriends.crawl(credentials, databseLocation)
 getSeedProfiles = ()
 count = 0

@@ -10,10 +10,10 @@ def insertProfileDetails(leader,type, profileDetailList):
 def insertEdge(country):
     pass
 
-def insertRetweeters(tweet, retweeters, Leader, database):
+def insertRetweeters(tweet, retweeters, Party, database):
     retweetersList = retweeters.get('ids')
     for j in retweetersList:
-        query = ("INSERT INTO " + Leader + "retweeters (tweetId, retweeterId) "
+        query = ("INSERT INTO " + Party + "retweeters (tweetId, retweeterId) "
                                                       "VALUES(" + str(tweet) + ","+str(j)+")")
         database.execute(query)
         database.commit()
