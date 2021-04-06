@@ -47,7 +47,7 @@ def getEachTweets(id):
             TwitterClient = connectToTwitter.connect2()
         else:
             print(response2.status)
-            print(id)
+            #print(id)
             print(len(gatheredTweets))
             #gatheredTweets.append(tweets)
             return gatheredTweets
@@ -61,7 +61,7 @@ def getTweets(leaderNames, database):
         requestTweets = getEachTweets(leader)
         print(requestTweets[0])
         for k in requestTweets:
-            print(k.get('id'))
+            #print(k.get('id'))
             try:
                insertIntoDb.insertTweetNumber(database,leader, k.get('id'))
             except Exception as e:
@@ -72,4 +72,5 @@ def getTweets(leaderNames, database):
         for i in database.execute(query2):
             totalTweets.append(i[0])
         print(leader)
+        print('Number of Total Tweets Gathered')
         print(len(totalTweets))

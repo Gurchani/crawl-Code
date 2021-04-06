@@ -14,6 +14,10 @@ def create_connection(db_file):
             return conn
 
 connection = create_connection("C:\sqlite\db\Pakistan.db")
-Query = ('Select * from FNretweeters')
+Query = ('Select * from PTIretweeterFriends where retweeterId = 1269241567434420224')
+count = 0
 for i in connection.execute(Query):
+    count = count + 1
     print(i)
+print('Number of Values returned')
+print(count)

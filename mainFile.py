@@ -18,8 +18,8 @@ db = createDatabase.createCountrydb(country, databseLocation) #Done
 leaderNames, parties = getLeaderNames.getNames() #Done
 getTweets.getTweets(leaderNames, db) #Done
 getRetweeters.getRetweeters(leaderNames, parties, db) #Done
-processRetweeters.process(leaderNames, parties, db)
-crawlFriends.crawl(credentials, databseLocation)
+processRetweeters.process(leaderNames, parties, db) #Done
+crawlFriends.crawl(parties, db) #Done
 getSeedProfiles = ()
 count = 0
 while True:

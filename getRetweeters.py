@@ -20,6 +20,7 @@ def Retweeters(tweet):
     else:
         print('There is some problem, read the following Twitter error code:')
         print(response2.status)
+        TwitterClient = connectToTwitter.connect2()
 
 
 import connectToTwitter
