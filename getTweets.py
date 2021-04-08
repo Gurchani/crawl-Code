@@ -20,7 +20,7 @@ def getEachTweets(id):
     maxId = 0
     timeTobreak = False
     for l in range(0, 30):
-        if maxId is not 0:
+        if maxId != 0:
             recentTweets = apiVersion1Call + "?cursor=" + str(cursor) + "&screen_name=" + str(
                 id) + "&count=200&include_rts=0&max_id=" + str(maxId)
         else:
@@ -44,7 +44,7 @@ def getEachTweets(id):
                 if maxId > idVal or maxId == 0:
                     maxId = idVal
         elif response2.status == 429:
-            TwitterClient = connectToTwitter.connect2()
+            TwitterClient = connectToTwitter.connect3()
         else:
             print(response2.status)
             #print(id)
@@ -57,7 +57,7 @@ def getTweets(leaderNames, database):
     for leader in leaderNames:
         createDatabase.createTweetIdtab(leader, database)
         global TwitterClient
-        TwitterClient = connectToTwitter.connect2()
+        TwitterClient = connectToTwitter.connect3()
         requestTweets = getEachTweets(leader)
         print(requestTweets[0])
         for k in requestTweets:

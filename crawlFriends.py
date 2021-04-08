@@ -6,10 +6,12 @@ import  insertIntoDb
 apiVersion1Call = 'https://api.twitter.com/1.1/friends/ids.json'
 
 def getUsers(party, db):
-    Query = 'Select retweeterId from ' + party + 'retweeterFreq'
+    Query = 'Select retweeterId from ' + party + 'retweeterFreq order by freq desc limit 15'
     listToReturn = []
     for k in db.execute(Query):
         listToReturn.append(k[0])
+    print(party)
+    print(len(listToReturn))
     return listToReturn
 
 def insertFriendEdges(user, party, FriendsData, db):
@@ -20,8 +22,9 @@ def insertFriendEdges(user, party, FriendsData, db):
 
 def getFriends(userList, party, db):
     for i in userList:
+        print('Getting friends of User :' + str(i))
         cursor = -1
-        while cursor is not 0:
+        while cursor != 0:
             friendCall = apiVersion1Call+"?cursor="+str(cursor)+"&user_id="+str(i)+"&count=5000"
             global TwitterClient
             response2, data2 = TwitterClient.request(friendCall)
@@ -31,8 +34,9 @@ def getFriends(userList, party, db):
                 cursor = FriendsData["next_cursor"]
             elif response2.status == 429:
                 print('Previous authentication stopped working')
-                TwitterClient = connectToTwitter.connect2()
+                TwitterClient = connectToTwitter.connect3()
             else:
+                print(response2.status)
                 print('Try to print the new error code')
 
 
@@ -42,7 +46,7 @@ def getFriends(userList, party, db):
 
 def crawl(parties, db):
     global TwitterClient
-    TwitterClient = connectToTwitter.connect2()
+    TwitterClient = connectToTwitter.connect3()
     for i in parties:
         UsersList = getUsers(i, db)
         getFriends(UsersList, i, db)
@@ -52,4 +56,4 @@ def crawl(parties, db):
 #desiredReferanceScore = input('What percentage of graph you want:')
 #country = input('Country Name:')
 #db = createDatabase.createCountrydb(country, databseLocation)
-#crawl(['PTI'], db)
+#crawl(['FN'], db)

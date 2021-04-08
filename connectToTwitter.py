@@ -1,7 +1,7 @@
 
 import oauth2 as oauth
 import random
-
+import authenticationDB
 
 def connectToTwitter(credentials):
     consumer = oauth.Consumer(key=credentials[0], secret=credentials[1])
@@ -10,9 +10,11 @@ def connectToTwitter(credentials):
     return client
 
 
+#For me and for testing
 def getNewAuthetication():
-    return Authentications[random.randint(0, len(Authentications))]
+    return authenticationDB.Authentications()
 
+#For me and for testing
 def connect3():
     keys = getNewAuthetication()
     print(keys)
@@ -20,6 +22,7 @@ def connect3():
     return client
 
 
+#for release
 def connect2():
     CONSUMER_KEY = input('CONSUMER_KEY:')
     CONSUMER_SECRET = input('CONSUMER_SECRET:')

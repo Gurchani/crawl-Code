@@ -15,19 +15,19 @@ def Retweeters(tweet):
     if response2.status == 200:
         return retweeters
     elif response2.status == 429:
-        TwitterClient = connectToTwitter.connect2()
+        TwitterClient = connectToTwitter.connect3()
         print('Met the 15min Authentication Limit')
     else:
         print('There is some problem, read the following Twitter error code:')
         print(response2.status)
-        TwitterClient = connectToTwitter.connect2()
+        TwitterClient = connectToTwitter.connect3()
 
 
 import connectToTwitter
 import getLeaderNames
 def getRetweeters(leaderNames, parties, db):
     global TwitterClient
-    TwitterClient = connectToTwitter.connect2()
+    TwitterClient = connectToTwitter.connect3()
     partyLeaderDf = getLeaderNames.getLeaderPartyDF(leaderNames, parties)
     print(partyLeaderDf)
     parties = partyLeaderDf['party'].unique()
