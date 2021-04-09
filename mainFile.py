@@ -17,11 +17,12 @@ import seedSelection
 db = createDatabase.createCountrydb(country, databseLocation) #Done
 #TwitterConnection = connectToTwitter.connect2() #Done
 leaderNames, parties = getLeaderNames.getNames() #Done
+retweetersLimit = input('Retweeters Limit:')
 getTweets.getTweets(leaderNames, db) #Done
 getRetweeters.getRetweeters(leaderNames, parties, db) #Done
 processRetweeters.process(leaderNames, parties, db) #Done
-crawlFriends.crawl(parties, db) #Done
-getSeedProfiles = ()
+crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
+SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit)
 count = 0
 while True:
     getProfileDetails(credentials, leaderNames, databseLocation)

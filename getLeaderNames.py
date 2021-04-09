@@ -3,7 +3,6 @@ def getNames():
     namesList = []
     partyList = []
     howMany = int(input('how many leaders'))
-    parties = int(input('how many groups or parties:'))
     for i in range(0, howMany):
         namesList.append(input('Leader Twitter Handle:'))
         partyList.append(input('His/her party name:'))

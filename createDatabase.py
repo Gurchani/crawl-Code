@@ -4,6 +4,10 @@ from sqlite3 import Error
 def createProfileDetailtab(leader):
     pass
 
+def createCoverTable(party, db):
+    queryText = 'Create table IF NOT EXISTS ' + str(party) + 'covered (retweeterId BIGINT)'
+    db.execute(queryText)
+
 def createRetweeterFriendsDb(party, database):
     queryText = 'Create table IF NOT EXISTS ' + str(party) + 'retweeterFriends (retweeterId BIGINT,' \
                                                               'FriendId BIGINT NOT NULL)'

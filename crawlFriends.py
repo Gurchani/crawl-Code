@@ -5,8 +5,8 @@ import  insertIntoDb
 
 apiVersion1Call = 'https://api.twitter.com/1.1/friends/ids.json'
 
-def getUsers(party, db):
-    Query = 'Select retweeterId from ' + party + 'retweeterFreq order by freq desc limit 15'
+def getUsers(party, db, retweetersLimit):
+    Query = 'Select retweeterId from ' + party + 'retweeterFreq order by freq desc limit ' + str(retweetersLimit)
     listToReturn = []
     for k in db.execute(Query):
         listToReturn.append(k[0])
@@ -44,11 +44,12 @@ def getFriends(userList, party, db):
 
 
 
-def crawl(parties, db):
+def crawl(parties, db, retweeterLimit):
     global TwitterClient
     TwitterClient = connectToTwitter.connect3()
+    print(parties)
     for i in parties:
-        UsersList = getUsers(i, db)
+        UsersList = getUsers(i, db, retweeterLimit)
         getFriends(UsersList, i, db)
 
 #Testing Code
