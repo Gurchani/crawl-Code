@@ -3,6 +3,14 @@ from pandas import DataFrame
 import pandas as pd
 import createDatabase
 
+def getCrawlCost(users, db):
+    followerCount = []
+    for i in users:
+        query = 'select follower_count from userdetails where id = ' + str(i)
+        for k in db.execute(query):
+            followerCount.append(k[0])
+    return followerCount
+
 def getDataOfRetweetersFriends(party, db):
     Query = "Select * from " + party + "retweeterFriends"
     recoverall = db.execute(Query)
@@ -31,10 +39,10 @@ def calculateRelativePopuarity(df):
     df['Total'] = 0
     colNames = df.columns
     for i in colNames:
-        if i != 'Total':
+        if i != 'Total' or i != 'crawlCost':
             df['Total'] = df['Total'] + df[i]
     for i in colNames:
-        df[i + 'Rel'] = (df[i]* df[i])/df['Total']
+        df[i + 'Rel'] = (df[i]* df[i])/(df['Total'] * df['crawlCost'])
     return df
 
 def selectSeed(parties, db, NumberOfRetweeters):
@@ -48,6 +56,7 @@ def selectSeed(parties, db, NumberOfRetweeters):
         setOfAllFriends = setOfAllFriends.union(popularFriends)
 
     popularityDF = createIN_OUTPopularityDF(parties, listOfFriendCounts, list(setOfAllFriends))
+    popularityDF['crawlCost'] = getCrawlCost(list(popularityDF.index), db)
     #print(popularityDF[popularityDF['PTI'] > 0].sort_values(by='PPP', ascending=False).head(15))
     relativePop = calculateRelativePopuarity(popularityDF)
     SeedValidationList = []
@@ -82,13 +91,13 @@ def validateSeed(parties, SeedLists, db, retweeterSetSize):
                 break
 
 #Testing Code
-import createDatabase
-print('asdasd')
-databseLocation = "C:\sqlite\db\\"
-desiredReferanceScore = input('What percentage of graph you want:')
-country = input('Country Name:')
-db = createDatabase.createCountrydb(country, databseLocation)
-parties = ['FN', 'PTI']
-seedsBasic = selectSeed(parties, db, 50)
+#import createDatabase
+#print('asdasd')
+#databseLocation = "C:\sqlite\db\\"
+#desiredReferanceScore = input('What percentage of graph you want:')
+#country = input('Country Name:')
+#db = createDatabase.createCountrydb(country, databseLocation)
+#parties = ['FN', 'PTI']
+#seedsBasic = selectSeed(parties, db, 50)
 #validateSeed(parties, seedsBasic, db, 50)
 

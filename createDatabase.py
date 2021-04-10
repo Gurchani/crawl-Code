@@ -17,6 +17,12 @@ def createTweetIdtab(leader, database):
     queryText = 'Create table IF NOT EXISTS '+str(leader)+'tweets (tweetId BIGINT PRIMARY KEY)'
     database.execute(queryText)
 
+def createUserDetailtab(db):
+    queryText = 'create table if not exists userdetails (id BIGINT PRIMARY KEY,' \
+                'id_str STRING, name STRING, screen_name STRING, location STRING,description STRING, protected BOOLEAN,' \
+                'verified BOOLEAN, followers_count INTEGER, friends_count INTEGER, favourites_count INTEGER,' \
+                'statuses_count INTEGER, created_at INTEGER )'
+    db.execute(queryText)
 
 
 def createRetweetertab(leader, database):
