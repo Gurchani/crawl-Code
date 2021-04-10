@@ -18,11 +18,11 @@ def create_connection(db_file):
 connection = create_connection("C:\sqlite\db\Pakistan.db")
 
 
-Query = ('Select * from PMLNretweeterFriends')
+Query = ('select followers_count from userdetails where id = ' + str(789076617792454656))
 count = 0
 for i in connection.execute(Query):
     count = count + 1
-    print(i)
+    print(i[0])
 print('Number of Values returned')
 print(count)
 

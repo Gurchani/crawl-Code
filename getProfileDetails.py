@@ -29,12 +29,12 @@ def getProfileDetails(users, db):
     TwitterClient = connectToTwitter.connect3()
     listOfId = ''
     for i, count in zip(users, range(0, len(users))):
-        listOfId = listOfId + str(i)
+        listOfId = listOfId + str(i) + ','
         if count % 100 == 0:
-            callAPI(listOfId, db)
+            callAPI(listOfId[:-1], db)
             listOfId = ''
     if listOfId != '':
-        callAPI(listOfId, db)
+        callAPI(listOfId[:-1], db)
 
 
 #import createDatabase

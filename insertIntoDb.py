@@ -8,8 +8,10 @@ def insertTweetNumber(database, Leader, tweetId):
 def insertProfileDetails(profileDetailList, db):
     counter = 0
     profiles = json.loads(profileDetailList)
+    InsertQuery = "INSERT OR IGNORE INTO userdetails (`id`, `id_str`,`name`, `screen_name`, `location`, `description`, `protected`, `verified`, `followers_count`, `friends_count`, `favourites_count`, `statuses_count`, `created_at`) " \
+                  "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"
     for k in profiles:
-        values = str((str(k.get("id")),
+        values = (str(k.get("id")),
                       k.get("id_str"),
                   k.get("name").encode('ascii', 'ignore').decode('ascii'),
                   k.get("screen_name").encode('ascii', 'ignore').decode('ascii'),
@@ -24,12 +26,12 @@ def insertProfileDetails(profileDetailList, db):
                   k.get("created_at")
 
                   # k.get("lang")
-                  ))
-        InsertQuery = ("INSERT INTO userdetails"
-                       " (`id`, `id_str`,`name`, `screen_name`, `location`, `description`, `protected`, `verified`, `followers_count`, `friends_count`, `favourites_count`, `statuses_count`, `created_at`) "
-                       "VALUES " + values + "")
-        db.execute(InsertQuery)
+                  )
+        db.execute(InsertQuery, values)
         db.commit()
+        #InsertQuery = ("INSERT OR IGNORE INTO userdetails (`id`, `id_str`,`name`, `screen_name`, `location`, `description`, `protected`, `verified`, `followers_count`, `friends_count`, `favourites_count`, `statuses_count`, `created_at`) "
+        #               "VALUES " + values)
+
         counter = counter + 1
 
 def insertEdge(country):
