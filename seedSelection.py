@@ -5,7 +5,7 @@ import createDatabase
 import getProfileDetails
 
 def getCrawlCost(users, db):
-    getProfileDetails.getProfileDetails(users,db )
+    #getProfileDetails.getProfileDetails(users,db )
     followerCount = []
     for i in users:
         query = 'select id, followers_count from userdetails where id = ' + str(i)
@@ -45,7 +45,8 @@ def calculateRelativePopuarity(df):
         if i != 'Total' or i != 'crawlCost':
             df['Total'] = df['Total'] + df[i]
     for i in colNames:
-        df[i + 'Rel'] = (df[i]* df[i])/(df['Total'] + df['crawlCost'])
+        #df[i + 'Rel'] = (df[i]* df[i])/(df['Total'] * df['crawlCost'])
+        df[i + 'Rel'] = (df[i] * df[i]) / (df['Total'])
     return df
 
 def selectSeed(parties, db, NumberOfRetweeters):
@@ -67,7 +68,7 @@ def selectSeed(parties, db, NumberOfRetweeters):
     SeedValidationList = []
     for i in parties:
         textRel = i + 'Rel'
-        print(relativePop.sort_values(by=textRel, ascending=False).head())
+        print(relativePop.sort_values(by=textRel, ascending=False)['id'].head())
         SeedValidationList.append(relativePop.sort_values(by=textRel, ascending=False)['id'])
     return validateSeed(list(set(parties)), SeedValidationList, db, NumberOfRetweeters)
 
@@ -89,13 +90,13 @@ def validateSeed(parties, SeedLists, db, retweeterSetSize):
                 break
 
 #Testing Code
-import createDatabase
-print('asdasd')
-databseLocation = "C:\sqlite\db\\"
-desiredReferanceScore = input('What percentage of graph you want:')
-country = input('Country Name:')
-db = createDatabase.createCountrydb(country, databseLocation)
-parties = ['PTI', 'JUIF']
-seedsBasic = selectSeed(parties, db, 10)
-validateSeed(parties, seedsBasic, db, 10)
+#import createDatabase
+#print('asdasd')
+#databseLocation = "C:\sqlite\db\\"
+#desiredReferanceScore = input('What percentage of graph you want:')
+#country = input('Country Name:')
+#db = createDatabase.createCountrydb(country, databseLocation)
+#parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
+#seedsBasic = selectSeed(parties, db, 50)
+#validateSeed(parties, seedsBasic, db, 10)
 
