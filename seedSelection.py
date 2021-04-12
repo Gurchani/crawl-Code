@@ -1,6 +1,7 @@
 
 from pandas import DataFrame
 import pandas as pd
+import setHittingProblem
 import createDatabase
 import getProfileDetails
 
@@ -10,7 +11,7 @@ def getCrawlCost(users, db):
     for i in users:
         query = 'select id, followers_count from userdetails where id = ' + str(i)
         for k in db.execute(query):
-            print(k[0])
+            #print(k[0])
             followerCount.append([k[0], k[1]])
     return pd.DataFrame(followerCount, columns=['id', 'crawlCost'])
 
@@ -38,22 +39,25 @@ def createIN_OUTPopularityDF(parties, listOfFriendCounts, allUniqueFriends):
     friendFrequencyDF = pd.DataFrame(friendFrequencyList, columns=columnNames ,index=allUniqueFriends)
     return friendFrequencyDF
 
-def calculateRelativePopuarity(df):
+def calculateRelativePopuarity(df, parties):
     df['Total'] = 0
     colNames = df.columns
     for i in colNames:
-        if i != 'Total' or i != 'crawlCost':
+        if i in parties:
             df['Total'] = df['Total'] + df[i]
     for i in colNames:
-        #df[i + 'Rel'] = (df[i]* df[i])/(df['Total'] * df['crawlCost'])
-        df[i + 'Rel'] = (df[i] * df[i]) / (df['Total'])
+        if i in parties:
+            #df[i + 'Rel'] = (df[i]* df[i])/(df['Total'] * df['crawlCost'])
+            df[i + 'Rel'] = (df[i] * df[i]) / (df['Total'])
     return df
 
 def selectSeed(parties, db, NumberOfRetweeters):
     setOfAllFriends = set()
     listOfFriendCounts = []
+    partiesDF = []
     for i in parties:
         partyDf = getDataOfRetweetersFriends(i, db)
+        partiesDF.append(partyDf)
         FriendPopularityInsideParty = partyDf['friend'].value_counts()
         listOfFriendCounts.append(FriendPopularityInsideParty)
         popularFriends = set(partyDf['friend'])
@@ -64,13 +68,19 @@ def selectSeed(parties, db, NumberOfRetweeters):
     popularityDF = popularityDF.merge(crawlCostDF, left_index = True, right_on ='id', how='inner')
     #popularityDF['crawlCost'] =
     #print(popularityDF[popularityDF['PTI'] > 0].sort_values(by='PPP', ascending=False).head(15))
-    relativePop = calculateRelativePopuarity(popularityDF)
+    relativePop = calculateRelativePopuarity(popularityDF, parties)
     SeedValidationList = []
+    count = 0
     for i in parties:
+        partyRTFriends = partiesDF[count]
         textRel = i + 'Rel'
-        print(relativePop.sort_values(by=textRel, ascending=False)['id'].head())
-        SeedValidationList.append(relativePop.sort_values(by=textRel, ascending=False)['id'])
-    return validateSeed(list(set(parties)), SeedValidationList, db, NumberOfRetweeters)
+        print(i)
+        pd.set_option('display.max_columns', None)
+        #print(relativePop.sort_values(by=textRel, ascending=False).head())
+        count = count + 1
+        setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(10), textRel, partyRTFriends)
+    #    SeedValidationList.append(relativePop.sort_values(by=textRel, ascending=False)['id'])
+    #return validateSeed(list(set(parties)), SeedValidationList, db, NumberOfRetweeters)
 
 def validateSeed(parties, SeedLists, db, retweeterSetSize):
     for i, party in zip(SeedLists, parties):
@@ -90,13 +100,13 @@ def validateSeed(parties, SeedLists, db, retweeterSetSize):
                 break
 
 #Testing Code
-#import createDatabase
-#print('asdasd')
-#databseLocation = "C:\sqlite\db\\"
-#desiredReferanceScore = input('What percentage of graph you want:')
-#country = input('Country Name:')
-#db = createDatabase.createCountrydb(country, databseLocation)
-#parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
-#seedsBasic = selectSeed(parties, db, 50)
+import createDatabase
+print('asdasd')
+databseLocation = "C:\sqlite\db\\"
+desiredReferanceScore = input('What percentage of graph you want:')
+country = input('Country Name:')
+db = createDatabase.createCountrydb(country, databseLocation)
+parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
+seedsBasic = selectSeed(parties, db, 50)
 #validateSeed(parties, seedsBasic, db, 10)
 
