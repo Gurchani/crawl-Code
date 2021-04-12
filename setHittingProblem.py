@@ -20,7 +20,15 @@ def rtDFDic(df, friendsDb):
         dicOfSets[i] = set(friendsDb[friendsDb['friend'] == i]['retweeterId'])
     return dicOfSets
 
-def findTheBestCombo(df, parties, partyRTFriendsDF):
+def interSectionLevel(setList):
+    intersections = 0
+    interSectList = range(0, len(setList))
+    combos = itertools.combinations(interSectList, 2)
+    for i, j in combos:
+        intersections = intersections + len(setList[i].intersection(setList[j]))
+    return intersections
+
+def findTheBestCombo(df, parties, partyRTFriendsDF, reTweeterLen, targetPercentage):
     rtDFDictionary = rtDFDic(df, partyRTFriendsDF)
     combos = getCombos(df)
     costCoverAnalysis = []
@@ -32,18 +40,27 @@ def findTheBestCombo(df, parties, partyRTFriendsDF):
             cost = 0
             ref = ref + 1
             tempList = []
+            tempSetist = []
             for k in j:
                 #print(k)
+                tempSetist.append(rtDFDictionary.get(k))
                 tempList.extend(rtDFDictionary.get(k))
                 cost = cost + df[df['id'] == k ]['crawlCost'].values[0]
+            if len(tempSetist) > 1:
+                intersections = interSectionLevel(tempSetist)
+            else:
+                intersections = 1
             covered = list(set(tempList))
             costCoverDic[ref] = [j, covered]
             if (cost != None) and (len(covered) > 0):
-                costCoverAnalysis.append([ref, cost, len(covered)])
-    ccDF = pd.DataFrame(costCoverAnalysis, columns=['ref', 'cost', 'coveredLen'])
-    ccDF['cov/cos'] = ccDF['coveredLen']/ccDF['cost']
-    print(ccDF.sort_values(by='cov/cos', ascending=False))
-    valScore = ccDF.sort_values(by='cov/cos', ascending=False).head(1)['ref'].values[0]
+                costCoverAnalysis.append([ref, cost, len(covered), intersections])
+    ccDF = pd.DataFrame(costCoverAnalysis, columns=['ref', 'cost', 'coveredLen', 'instersections'])
+    ccDF['cov/cos'] = (ccDF['coveredLen']/reTweeterLen) * (1/ccDF['cost']) * (1/ccDF['instersections'])
+    tempDF = ccDF.sort_values(by='cov/cos', ascending=False)
+    #tempDF = tempDF[tempDF['coveredLen'] > reTweeterLen * targetPercentage]
+    #valScore = ccDF.sort_values(by='cov/cos', ascending=False).head(1)['ref'].values[0]
+    valScore = tempDF.head(1)['ref'].values[0]
+    print(valScore)
     print('The best set is: ')
     bestOne = costCoverDic.get(valScore)
     print(bestOne[0])

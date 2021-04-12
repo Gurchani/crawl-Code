@@ -51,7 +51,7 @@ def calculateRelativePopuarity(df, parties):
             df[i + 'Rel'] = (df[i] * df[i]) / (df['Total'])
     return df
 
-def selectSeed(parties, db, NumberOfRetweeters):
+def selectSeed(parties, db, NumberOfRetweeters, targetPercentage, numberOfFriendsToSelectFrom):
     setOfAllFriends = set()
     listOfFriendCounts = []
     partiesDF = []
@@ -78,7 +78,7 @@ def selectSeed(parties, db, NumberOfRetweeters):
         pd.set_option('display.max_columns', None)
         #print(relativePop.sort_values(by=textRel, ascending=False).head())
         count = count + 1
-        setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(10), textRel, partyRTFriends)
+        setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(numberOfFriendsToSelectFrom), textRel, partyRTFriends, NumberOfRetweeters, targetPercentage)
     #    SeedValidationList.append(relativePop.sort_values(by=textRel, ascending=False)['id'])
     #return validateSeed(list(set(parties)), SeedValidationList, db, NumberOfRetweeters)
 
@@ -107,6 +107,7 @@ desiredReferanceScore = input('What percentage of graph you want:')
 country = input('Country Name:')
 db = createDatabase.createCountrydb(country, databseLocation)
 parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
-seedsBasic = selectSeed(parties, db, 50)
+
+seedsBasic = selectSeed(parties, db, 50, 0.80, 15)
 #validateSeed(parties, seedsBasic, db, 10)
 
