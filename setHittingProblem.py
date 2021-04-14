@@ -49,7 +49,7 @@ def findTheBestCombo(df, parties, partyRTFriendsDF, reTweeterLen, targetPercenta
             if len(tempSetist) > 1:
                 intersections = interSectionLevel(tempSetist)
             else:
-                intersections = 1
+                intersections = reTweeterLen * 10 # to discourse single values
             covered = list(set(tempList))
             costCoverDic[ref] = [j, covered]
             if (cost != None) and (len(covered) > 0):
@@ -59,11 +59,21 @@ def findTheBestCombo(df, parties, partyRTFriendsDF, reTweeterLen, targetPercenta
     tempDF = ccDF.sort_values(by='cov/cos', ascending=False)
     #tempDF = tempDF[tempDF['coveredLen'] > reTweeterLen * targetPercentage]
     #valScore = ccDF.sort_values(by='cov/cos', ascending=False).head(1)['ref'].values[0]
-    valScore = tempDF.head(1)['ref'].values[0]
-    print(valScore)
-    print('The best set is: ')
-    bestOne = costCoverDic.get(valScore)
-    print(bestOne[0])
-    print(len(bestOne[1]))
+    tg = targetPercentage
+    while True:
+        for i in range(0, tempDF.shape[0]):
+            valScore = tempDF['ref'].iloc[i]
+            if tempDF['coveredLen'].iloc[i]/reTweeterLen > tg:
+                print('The best set is: ')
+                bestOne = costCoverDic.get(valScore)
+                print(bestOne[0])
+                print(len(bestOne[1]))
+                return bestOne[0]
+        tg = tg * 0.95
+
+
+
+
+
 
 

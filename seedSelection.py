@@ -108,6 +108,6 @@ country = input('Country Name:')
 db = createDatabase.createCountrydb(country, databseLocation)
 parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
 
-seedsBasic = selectSeed(parties, db, 50, 0.80, 15)
+seedsBasic = selectSeed(parties, db, 50, 0.999, 5)
 #validateSeed(parties, seedsBasic, db, 10)
 
