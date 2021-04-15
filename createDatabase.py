@@ -13,6 +13,11 @@ def createRetweeterFriendsDb(party, database):
                                                               'FriendId BIGINT NOT NULL)'
     database.execute(queryText)
 
+def createSeedFollowerDb(party, database):
+    queryText = 'Create table IF NOT EXISTS ' + str(party) + 'seedFollowers (SeedId BIGINT,' \
+                                                             'FollowerId BIGINT NOT NULL)'
+    database.execute(queryText)
+
 def createTweetIdtab(leader, database):
     queryText = 'Create table IF NOT EXISTS '+str(leader)+'tweets (tweetId BIGINT PRIMARY KEY)'
     database.execute(queryText)

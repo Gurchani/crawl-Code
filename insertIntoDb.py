@@ -5,6 +5,10 @@ def insertTweetNumber(database, Leader, tweetId):
     database.execute(query)
     database.commit()
 
+def insertSeedFollower(user,party,edge, db):
+    query = ("Insert or replace into "+party+"seedFollowers (SeedId, FollowerId) VALUES ("+user+","+edge+")")
+    db.execute(query)
+
 def insertProfileDetails(profileDetailList, db):
     counter = 0
     profiles = json.loads(profileDetailList)
@@ -41,6 +45,7 @@ def insertRetweeterFriends(user, party, friend, database):
     Query = ('INSERT INTO ' + party + 'retweeterFriends (retweeterId, FriendId) VALUES('+str(user) + ','+str(friend)+')')
     database.execute(Query)
     database.commit()
+
 
 
 def insertRetweeters(tweet, retweeters, Party, database):
