@@ -6,8 +6,10 @@ def insertTweetNumber(database, Leader, tweetId):
     database.commit()
 
 def insertSeedFollower(user,party,edge, db):
-    query = ("Insert or replace into "+party+"seedFollowers (SeedId, FollowerId) VALUES ("+user+","+edge+")")
+    query = ("Insert or replace into "+party+"seedFollowers (SeedId, FollowerId) VALUES ("+str(user)+","+str(edge)+")")
+    print(query)
     db.execute(query)
+    db.commit()
 
 def insertProfileDetails(profileDetailList, db):
     counter = 0

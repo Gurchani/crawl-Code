@@ -20,6 +20,7 @@ def getFollowers(seeds, party, db):
                 while cursor != 0:
                     followerCall = apiVersion1Call + "?cursor=" + str(cursor) + "&user_id=" + str(i) + "&count=5000"
                     global TwitterClient
+                    TwitterClient = connectToTwitter.connect3()
                     response2, data2 = TwitterClient.request(followerCall)
                     if response2.status == 200:
                         FollowerData = json.loads(data2)
@@ -32,5 +33,9 @@ def getFollowers(seeds, party, db):
                         print(response2.status)
                         print('Try to print the new error code')
 
-
-getFollowers([122453931, 3234394240], 'PTI')
+#Testing Code
+databseLocation = "C:\sqlite\db\\"
+desiredReferanceScore = input('What percentage of graph you want:')
+country = input('Country Name:')
+db = createDatabase.createCountrydb(country, databseLocation)
+getFollowers([[122453931, 3234394240]], ['PTI'], db)

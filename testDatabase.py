@@ -18,7 +18,7 @@ def create_connection(db_file):
 connection = create_connection("C:\sqlite\db\Pakistan.db")
 
 
-Query = ('select followers_count from userdetails where id = ' + str(789076617792454656))
+Query = ('select distinct FollowerId from PTIseedFollowers')
 count = 0
 for i in connection.execute(Query):
     count = count + 1
