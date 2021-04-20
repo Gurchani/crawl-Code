@@ -55,6 +55,7 @@ def selectSeed(parties, db, NumberOfRetweeters, targetPercentage, numberOfFriend
     setOfAllFriends = set()
     listOfFriendCounts = []
     partiesDF = []
+    partySeeds = []
     for i in parties:
         partyDf = getDataOfRetweetersFriends(i, db)
         partiesDF.append(partyDf)
@@ -78,9 +79,10 @@ def selectSeed(parties, db, NumberOfRetweeters, targetPercentage, numberOfFriend
         pd.set_option('display.max_columns', None)
         #print(relativePop.sort_values(by=textRel, ascending=False).head())
         count = count + 1
-        setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(numberOfFriendsToSelectFrom), textRel, partyRTFriends, NumberOfRetweeters, targetPercentage)
+        partySeeds.append(setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(numberOfFriendsToSelectFrom), textRel, partyRTFriends, NumberOfRetweeters, targetPercentage))
     #    SeedValidationList.append(relativePop.sort_values(by=textRel, ascending=False)['id'])
     #return validateSeed(list(set(parties)), SeedValidationList, db, NumberOfRetweeters)
+    return partySeeds
 
 def validateSeed(parties, SeedLists, db, retweeterSetSize):
     for i, party in zip(SeedLists, parties):
@@ -97,7 +99,7 @@ def validateSeed(parties, SeedLists, db, retweeterSetSize):
                 howManyDone = k[0]
             if howManyDone/retweeterSetSize > 0.95:
                 print(listOfFinalSeeds)
-                break
+                return
 
 #Testing Code
 import createDatabase
@@ -108,6 +110,6 @@ country = input('Country Name:')
 db = createDatabase.createCountrydb(country, databseLocation)
 parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
 
-seedsBasic = selectSeed(parties, db, 50, 0.999, 5)
-#validateSeed(parties, seedsBasic, db, 10)
+seedsBasic = selectSeed(parties, db, 50, 0.90, 5)
+print(seedsBasic)
 

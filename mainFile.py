@@ -23,6 +23,7 @@ getRetweeters.getRetweeters(leaderNames, parties, db) #Done
 processRetweeters.process(leaderNames, parties, db) #Done
 crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
 SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit)
+crawlFollowers(SeedProfiles)
 count = 0
 while True:
     getProfileDetails(credentials, leaderNames, databseLocation)
