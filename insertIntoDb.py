@@ -11,6 +11,11 @@ def insertSeedFollower(user,party,edge, db):
     db.execute(query)
     db.commit()
 
+def insertFriends(user, party, friend, database):
+    Query = ('INSERT INTO ' + party + 'Friends (UserId, FriendId) VALUES('+str(user) + ','+str(friend)+')')
+    database.execute(Query)
+    database.commit()
+
 def insertProfileDetails(profileDetailList, db):
     counter = 0
     profiles = json.loads(profileDetailList)
