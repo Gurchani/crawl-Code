@@ -13,6 +13,8 @@ import calculateReferanceScore
 import createDatabase
 import  processRetweeters
 import seedSelection
+import crawlFriends2ndTime
+
 
 db = createDatabase.createCountrydb(country, databseLocation) #Done
 #TwitterConnection = connectToTwitter.connect2() #Done
@@ -22,16 +24,12 @@ getTweets.getTweets(leaderNames, db) #Done
 getRetweeters.getRetweeters(leaderNames, parties, db) #Done
 processRetweeters.process(leaderNames, parties, db) #Done
 crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
-SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit)
-crawlFollowers(SeedProfiles)
-count = 0
-while True:
-    getProfileDetails(credentials, leaderNames, databseLocation)
-    if count%2 == 0:
-        crawlFriends.crawl(credentials, databseLocation)
-    else:
-        crawlFollowers.crawl(credentials, databseLocation)
-    refScore = calculateReferanceScore.score()
-    if refScore > desiredReferanceScore:
-        break
-print('Process is complete and your graph is ready')
+SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit) #Done
+crawlFollowers.getFollowers(SeedProfiles, parties, db) #Untested
+crawlFriends2ndTime.crawl(parties, db) #Untested
+
+#Not written yet
+getProfileDetails.getProfileDetails()
+calculateReferanceScore.score()
+runExperiments()
+
