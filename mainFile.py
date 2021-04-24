@@ -14,7 +14,7 @@ import createDatabase
 import  processRetweeters
 import seedSelection
 import crawlFriends2ndTime
-
+import mergeAllGraphs
 
 db = createDatabase.createCountrydb(country, databseLocation) #Done
 #TwitterConnection = connectToTwitter.connect2() #Done
@@ -28,7 +28,7 @@ SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit)
 crawlFollowers.getFollowers(SeedProfiles, parties, db) #Untested
 crawlFriends2ndTime.crawl(parties, db) #Untested
 getProfileDetails.getAllProfilesAndDetails(parties, db) #Untested
+mergeAllGraphs.merge(country, parties, db) #Untested
+print(calculateReferanceScore.score()) #Untested
 
-calculateReferanceScore.score()
-runExperiments()
 

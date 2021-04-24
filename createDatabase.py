@@ -18,6 +18,10 @@ def createFriendsDb(party, database):
                                                               'FriendId BIGINT NOT NULL)'
     database.execute(queryText)
 
+def completeGraph(country, database):
+    queryText = 'Create table IF NOT EXISTS '+country+'completeGraph (UserId BIGINT, ' \
+                                                              'FriendId BIGINT NOT NULL)'
+    database.execute(queryText)
 
 def createSeedFollowerDb(party, database):
     queryText = 'Create table IF NOT EXISTS ' + str(party) + 'seedFollowers (SeedId BIGINT,' \
