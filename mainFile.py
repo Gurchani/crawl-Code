@@ -27,9 +27,8 @@ crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
 SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit) #Done
 crawlFollowers.getFollowers(SeedProfiles, parties, db) #Untested
 crawlFriends2ndTime.crawl(parties, db) #Untested
+getProfileDetails.getAllProfilesAndDetails(parties, db) #Untested
 
-#Not written yet
-getProfileDetails.getProfileDetails()
 calculateReferanceScore.score()
 runExperiments()
 

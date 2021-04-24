@@ -8,6 +8,13 @@ apiCall = 'https://api.twitter.com/1.1/users/lookup.json'
 def insertIntoDatabase(profileDetails, db):
     insertIntoDb.insertProfileDetails(profileDetails, db)
 
+def getAllProfilesAndDetails(parties, db):
+    for i in parties:
+        for j in ['UserId', 'FriendId']:
+            query = 'select distinct '+j+' from '+ str(i) +'Friends where '+j+' not in (Select distinct id from userdetails)'
+            db.execute(query)
+            result = list(db.fetchall())
+            getProfileDetails(result, db)
 
 def callAPI(IdString, db):
     global TwitterClient
