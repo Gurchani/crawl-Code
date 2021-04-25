@@ -25,10 +25,10 @@ getRetweeters.getRetweeters(leaderNames, parties, db) #Done
 processRetweeters.process(leaderNames, parties, db) #Done
 crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
 SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit) #Done
-crawlFollowers.getFollowers(SeedProfiles, parties, db) #Untested
-crawlFriends2ndTime.crawl(parties, db) #Untested
-getProfileDetails.getAllProfilesAndDetails(parties, db) #Untested
-mergeAllGraphs.merge(country, parties, db) #Untested
+crawlFollowers.getFollowers(SeedProfiles, parties, db) #Tested Once
+crawlFriends2ndTime.crawl(parties, db) #Tested Once
+getProfileDetails.getAllProfilesAndDetails(parties, db) #Tested Once
+mergeAllGraphs.merge(country, parties, db) #Tested Once
 print(calculateReferanceScore.score()) #Untested
 
 

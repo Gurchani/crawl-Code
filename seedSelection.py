@@ -102,14 +102,14 @@ def validateSeed(parties, SeedLists, db, retweeterSetSize):
                 return
 
 #Testing Code
-import createDatabase
-print('asdasd')
-databseLocation = "C:\sqlite\db\\"
-desiredReferanceScore = input('What percentage of graph you want:')
-country = input('Country Name:')
-db = createDatabase.createCountrydb(country, databseLocation)
-parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
+#import createDatabase
+#print('asdasd')
+#databseLocation = "C:\sqlite\db\\"
+#desiredReferanceScore = input('What percentage of graph you want:')
+#country = input('Country Name:')
+#db = createDatabase.createCountrydb(country, databseLocation)
+#parties = ['PTI', 'JUIF', 'PMLN', 'PPP', 'JI']
 
-seedsBasic = selectSeed(parties, db, 50, 0.90, 5)
-print(seedsBasic)
+#seedsBasic = selectSeed(parties, db, 50, 0.90, 5)
+#print(seedsBasic)
 

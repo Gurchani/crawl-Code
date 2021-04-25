@@ -17,8 +17,7 @@ def create_connection(db_file):
 
 connection = create_connection("C:\sqlite\db\Pakistan.db")
 
-
-Query = ('select distinct FollowerId from PTIseedFollowers')
+Query = ('select distinct UserId from PakistancompleteGraph')
 count = 0
 for i in connection.execute(Query):
     count = count + 1

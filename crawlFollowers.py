@@ -34,8 +34,8 @@ def getFollowers(seeds, party, db):
                         print('Try to print the new error code')
 
 #Testing Code
-databseLocation = "C:\sqlite\db\\"
-desiredReferanceScore = input('What percentage of graph you want:')
-country = input('Country Name:')
-db = createDatabase.createCountrydb(country, databseLocation)
-getFollowers([[122453931, 3234394240]], ['PTI'], db)
+#databseLocation = "C:\sqlite\db\\"
+#desiredReferanceScore = input('What percentage of graph you want:')
+#country = input('Country Name:')
+#db = createDatabase.createCountrydb(country, databseLocation)
+#getFollowers([[122453931, 3234394240]], ['JUIF'], db)

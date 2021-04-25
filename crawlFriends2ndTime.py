@@ -15,7 +15,7 @@ def getUsers(party, db):
     return listToReturn
 
 def insertFriendEdges(user, party, FriendsData, db):
-    createDatabase.createRetweeterFriendsDb(party, db)
+    createDatabase.createFriendsDb(party, db)
     for k in FriendsData["ids"]:
         insertIntoDb.insertFriends(user, party, k, db)
 
@@ -29,6 +29,7 @@ def getFriends(userList, party, db):
             global TwitterClient
             response2, data2 = TwitterClient.request(friendCall)
             if response2.status == 200:
+                print('Success')
                 FriendsData = json.loads(data2)
                 insertFriendEdges(i, party, FriendsData, db)
                 cursor = FriendsData["next_cursor"]
@@ -37,12 +38,8 @@ def getFriends(userList, party, db):
                 TwitterClient = connectToTwitter.connect3()
             else:
                 print(response2.status)
+                TwitterClient = connectToTwitter.connect3()
                 print('Try to print the new error code')
-
-
-
-
-
 
 def crawl(parties, db):
     global TwitterClient
@@ -53,8 +50,8 @@ def crawl(parties, db):
         getFriends(UsersList, i, db)
 
 #Testing Code
-#databseLocation = "C:\sqlite\db\\"
-#desiredReferanceScore = input('What percentage of graph you want:')
-#country = input('Country Name:')
-#db = createDatabase.createCountrydb(country, databseLocation)
-#crawl(['FN'], db)
+databseLocation = "C:\sqlite\db\\"
+desiredReferanceScore = input('What percentage of graph you want:')
+country = input('Country Name:')
+db = createDatabase.createCountrydb(country, databseLocation)
+crawl(['JUIF'], db)

@@ -12,9 +12,15 @@ def getAllProfilesAndDetails(parties, db):
     for i in parties:
         for j in ['UserId', 'FriendId']:
             query = 'select distinct '+j+' from '+ str(i) +'Friends where '+j+' not in (Select distinct id from userdetails)'
-            db.execute(query)
-            result = list(db.fetchall())
+            print(query)
+            cur = db.cursor()
+            #db.execute(query)
+
+            result = list(cur.execute(query).fetchall())
+            result = [x[0] for x in result]
+            print(result)
             getProfileDetails(result, db)
+
 
 def callAPI(IdString, db):
     global TwitterClient
@@ -51,9 +57,9 @@ def getProfileDetails(users, db):
 #db = createDatabase.createCountrydb(country, databseLocation)
 
 #parties = ['217749896', '14973943']
-#seedsBasic = getProfileDetails(parties, db)
+#seedsBasic = getAllProfilesAndDetails(['JUIF'], db)
 #for i in db.execute('select * from userdetails'):
-#    print(i)
+    #print(i)
 #validateSeed(parties, seedsBasic, db, 50)
 
 
