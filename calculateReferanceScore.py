@@ -56,9 +56,9 @@ def CalculateCombinedReferanceScores(graphDF, profileDetails):
     gc.collect()
     return (referanceScore, calculationBasis[0])
 
-import createDatabase
-databseLocation = "C:\sqlite\db\\"
-desiredReferanceScore = input('What percentage of graph you want:')
-country = input('Country Name:')
-db = createDatabase.createCountrydb(country, databseLocation)
-print(score('Pakistan', db))
+#import createDatabase
+#databseLocation = "C:\sqlite\db\\"
+#desiredReferanceScore = input('What percentage of graph you want:')
+#country = input('Country Name:')
+#db = createDatabase.createCountrydb(country, databseLocation)
+#print(score('Pakistan', db))

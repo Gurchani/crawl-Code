@@ -6,7 +6,7 @@ import createDatabase
 import getProfileDetails
 
 def getCrawlCost(users, db):
-    #getProfileDetails.getProfileDetails(users,db )
+    getProfileDetails.getProfileDetails(users,db )
     followerCount = []
     for i in users:
         query = 'select id, followers_count from userdetails where id = ' + str(i)

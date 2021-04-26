@@ -9,8 +9,8 @@ def merge(country, parties, db):
 
 
 #Testing Code
-databseLocation = "C:\sqlite\db\\"
-desiredReferanceScore = input('What percentage of graph you want:')
-country = input('Country Name:')
-db = createDatabase.createCountrydb(country, databseLocation)
-merge('Pakistan', ['PTI', 'JUIF'], db)
+#databseLocation = "C:\sqlite\db\\"
+#desiredReferanceScore = input('What percentage of graph you want:')
+#country = input('Country Name:')
+#db = createDatabase.createCountrydb(country, databseLocation)
+#merge('Pakistan', ['PTI', 'JUIF'], db)
