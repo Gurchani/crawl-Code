@@ -12,26 +12,26 @@ def create_connection(db_file):
         if conn:
             return conn
 
-authentication = create_connection("C:\sqlite\db\Authentication.db")
+authentication = create_connection("/Users/anr-dis-covid/Desktop/sqlite/db/AuthenticationJune2021.db")
 
 createAuthenticationDb = ('Create table IF NOT EXISTS authentication (CONSUMER_KEY Text,'
                           'CONSUMER_SECRET Text, ACCESS_KEY Text, ACCESS_SECRET)')
 
-#authentication.execute(createAuthenticationDb)
-
-# for i in range(0, 15):
-#        CONSUMER_KEY = input('CONSUMER_KEY:')
-#        CONSUMER_SECRET = input('CONSUMER_SECRET:')
-#        ACCESS_KEY = input('ACCESS_KEY:')
-#        ACCESS_SECRET = input('ACCESS_SECRET:')
-#        InsertIntoAuthenticationDB = ('insert into authentication (CONSUMER_KEY '
-#                                      ', CONSUMER_SECRET, ACCESS_KEY, ACCESS_SECRET) VALUES ('+
-#                                        CONSUMER_KEY+','+CONSUMER_SECRET+','+ ACCESS_KEY +
-#                                      ','+ACCESS_SECRET +')')
+# authentication.execute(createAuthenticationDb)
 #
-#        print(InsertIntoAuthenticationDB)
-#        authentication.execute(InsertIntoAuthenticationDB)
-#        authentication.commit()
+# for i in range(0, 38):
+#         CONSUMER_KEY = input('CONSUMER_KEY:')
+#         CONSUMER_SECRET = input('CONSUMER_SECRET:')
+#         ACCESS_KEY = input('ACCESS_KEY:')
+#         ACCESS_SECRET = input('ACCESS_SECRET:')
+#         InsertIntoAuthenticationDB = ('insert into authentication (CONSUMER_KEY '
+#                                       ', CONSUMER_SECRET, ACCESS_KEY, ACCESS_SECRET) VALUES ('+
+#                                         CONSUMER_KEY+','+CONSUMER_SECRET+','+ ACCESS_KEY +
+#                                       ','+ACCESS_SECRET +')')
+#
+#         print(InsertIntoAuthenticationDB)
+#         authentication.execute(InsertIntoAuthenticationDB)
+#         authentication.commit()
 
 def Authentications():
     Query = 'Select * from authentication order by RANDOM() limit 15'

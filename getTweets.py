@@ -43,7 +43,7 @@ def getEachTweets(id):
                 idVal = k['id']
                 if maxId > idVal or maxId == 0:
                     maxId = idVal
-        elif response2.status == 429:
+        elif response2.status == 429 or response2.status == 403:
             TwitterClient = connectToTwitter.connect3()
         else:
             print(response2.status)

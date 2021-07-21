@@ -21,14 +21,24 @@ db = createDatabase.createCountrydb(country, databseLocation) #Done
 leaderNames, parties = getLeaderNames.getNames() #Done
 retweetersLimit = input('Retweeters Limit:')
 getTweets.getTweets(leaderNames, db) #Done
+print("Tweets Collected")
 getRetweeters.getRetweeters(leaderNames, parties, db) #Done
+print("Retweeters Collected")
 processRetweeters.process(leaderNames, parties, db) #Done
+print("Retweeters Processed")
 crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
+print("Friends Crawled")
 SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit, 0.90, 50) #Done
+print("Seeds Selected")
 crawlFollowers.getFollowers(SeedProfiles, parties, db) #Tested Once
+print("Followers Collected")
 crawlFriends2ndTime.crawl(parties, db) #Tested Once
+print("Friends Collected Second Time")
 getProfileDetails.getAllProfilesAndDetails(parties, db) #Tested Once
+print("Profiles Details Collected")
 mergeAllGraphs.merge(country, parties, db) #Tested Once
-print(calculateReferanceScore.score()) #Tested Only Once (few errors)
+print("All Graphs Merged")
+print("Referance Score: " + calculateReferanceScore.score()) #Tested Only Once (few errors)
+
 
 
