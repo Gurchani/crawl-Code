@@ -17,6 +17,8 @@ authentication = create_connection("/Users/anr-dis-covid/Desktop/sqlite/db/Authe
 createAuthenticationDb = ('Create table IF NOT EXISTS authentication (CONSUMER_KEY Text,'
                           'CONSUMER_SECRET Text, ACCESS_KEY Text, ACCESS_SECRET)')
 
+createAuthenticationDbTimer = ('Create table IF NOT EXISTS authenticationTimer (CONSUMER_KEY Text, followerTime, friendTime, tweetTime, profileDetailsTime)')
+
 # authentication.execute(createAuthenticationDb)
 #
 # for i in range(0, 38):
