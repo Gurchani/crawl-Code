@@ -17,9 +17,18 @@ authentication = create_connection("/Users/anr-dis-covid/Desktop/sqlite/db/Authe
 createAuthenticationDb = ('Create table IF NOT EXISTS authentication (CONSUMER_KEY Text,'
                           'CONSUMER_SECRET Text, ACCESS_KEY Text, ACCESS_SECRET)')
 
-createAuthenticationDbTimer = ('Create table IF NOT EXISTS authenticationTimer (CONSUMER_KEY Text, followerTime, friendTime, tweetTime, profileDetailsTime)')
+com = "SELECT * from authentication where CONSUMER_KEY = 'ape80D0L3QN85RR7QcZtTHWS6'"
+#authentication.execute(com)
+for i in authentication.execute(com):
+    print(i)
+authentication.commit()
 
-# authentication.execute(createAuthenticationDb)
+createAuthenticationDbTimer = ('Create table IF NOT EXISTS authenticationTimer (CONSUMER_KEY Text, followerTime datetime, friendTime datetime, tweetTime datetime, profileDetailsTime datetime)')
+authentication.execute(createAuthenticationDbTimer)
+
+#Query = ("INSERT INTO authenticationTimer CONSUMER_KEY (SELECT CONSUMER_KEY from authentication)")
+#authentication.execute(Query)
+#authentication.execute(createAuthenticationDb)
 #
 # for i in range(0, 38):
 #         CONSUMER_KEY = input('CONSUMER_KEY:')

@@ -2,6 +2,7 @@ import  connectToTwitter
 import  json
 import createDatabase
 import  insertIntoDb
+import time
 
 apiVersion1Call = 'https://api.twitter.com/1.1/followers/ids.json'
 
@@ -10,7 +11,16 @@ def insertSeedFollowerEdges(user, party, FollowerData, db):
     for k in FollowerData["ids"]:
         insertIntoDb.insertSeedFollower(user, party, k, db)
 
+def TimeRemaining(response):
+    print(response)
+    limit = int(response.get("x-rate-limit-limit"))
+    remaining = int(response.get("x-rate-limit-remaining"))
+    timeToReset = int(response.get("x-rate-limit-reset"))
 
+    if remaining/limit > 0.1:
+        return True
+    else:
+        return False
 
 def getFollowers(seeds, party, db):
         for l, j in zip(seeds, party):
@@ -22,14 +32,16 @@ def getFollowers(seeds, party, db):
                     global TwitterClient
                     TwitterClient = connectToTwitter.connect3()
                     response2, data2 = TwitterClient.request(followerCall)
-                    if response2.status == 200:
+                    if response2.status == 200 and TimeRemaining(response2):
                         FollowerData = json.loads(data2)
                         insertSeedFollowerEdges(i, j, FollowerData, db)
                         cursor = FollowerData["next_cursor"]
                     elif response2.status == 429:
+                        time.sleep(30)
                         print('Previous authentication stopped working')
                         TwitterClient = connectToTwitter.connect3()
                     else:
+                        time.sleep(30)
                         print(response2.status)
                         print('Try to print the new error code')
 
