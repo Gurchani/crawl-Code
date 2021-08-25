@@ -1,4 +1,4 @@
-databseLocation = "C:\sqlite\db\\"
+databseLocation = "E:\Twitter Country Data\\"
 desiredReferanceScore = input('What percentage of graph you want:')
 country = input('Country Name:')
 
@@ -18,15 +18,17 @@ import mergeAllGraphs
 
 db = createDatabase.createCountrydb(country, databseLocation) #Done
 #TwitterConnection = connectToTwitter.connect2() #Done
-leaderNames, parties = getLeaderNames.getNames() #Done
+#leaderNames, parties = getLeaderNames.getNames() #Done #Temporarily taken off for testing
+leaderNames = ['sdriks', 'liberalerna', 'Centerpartiet', 'kdriks', 'vansterpartiet', 'miljopartiet', 'socialdemokrat', 'moderaterna']
+parties = ['SD', 'L', 'C', 'KD', 'V', 'ML', 'S', 'M']
 retweetersLimit = input('Retweeters Limit:')
-getTweets.getTweets(leaderNames, db) #Done
+#getTweets.getTweets(leaderNames, db) #Done
 print("Tweets Collected")
-getRetweeters.getRetweeters(leaderNames, parties, db) #Done
+#getRetweeters.getRetweeters(leaderNames, parties, db) #Done
 print("Retweeters Collected")
-processRetweeters.process(leaderNames, parties, db) #Done
+#processRetweeters.process(leaderNames, parties, db) #Done
 print("Retweeters Processed")
-crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
+#crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
 print("Friends Crawled")
 SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit, 0.90, 50) #Done
 print("Seeds Selected")

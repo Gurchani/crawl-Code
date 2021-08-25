@@ -5,8 +5,10 @@ import setHittingProblem
 import createDatabase
 import getProfileDetails
 
+weightToexclusivity = 0.5
+
 def getCrawlCost(users, db):
-    getProfileDetails.getProfileDetails(users,db )
+    #getProfileDetails.getProfileDetails(users,db ) #temp
     followerCount = []
     for i in users:
         query = 'select id, followers_count from userdetails where id = ' + str(i)
@@ -25,9 +27,15 @@ def getDataOfRetweetersFriends(party, db):
 def createIN_OUTPopularityDF(parties, listOfFriendCounts, allUniqueFriends):
     print(len(listOfFriendCounts))
     friendFrequencyList = []
+    countx = 0
     for i in allUniqueFriends:
+        countx = countx + 1
+        b = countx / len(allUniqueFriends) * 100
+        print(b, end="\r")
         emptyList = []
+
         for k in listOfFriendCounts:
+
             try:
                 emptyList.append(k.loc[i])
             except:
@@ -48,7 +56,7 @@ def calculateRelativePopuarity(df, parties):
     for i in colNames:
         if i in parties:
             #df[i + 'Rel'] = (df[i]* df[i])/(df['Total'] * df['crawlCost'])
-            df[i + 'Rel'] = (df[i] * df[i]) / (df['Total'])
+            df[i + 'Rel'] = ((df[i] * df[i]) / (df['Total']))
     return df
 
 def selectSeed(parties, db, NumberOfRetweeters, targetPercentage, numberOfFriendsToSelectFrom):
@@ -78,8 +86,10 @@ def selectSeed(parties, db, NumberOfRetweeters, targetPercentage, numberOfFriend
         print(i)
         pd.set_option('display.max_columns', None)
         #print(relativePop.sort_values(by=textRel, ascending=False).head())
+        partySeeds.append(list(relativePop.sort_values(by=textRel, ascending=False).head(numberOfFriendsToSelectFrom)['id'].values))
         count = count + 1
-        partySeeds.append(setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(numberOfFriendsToSelectFrom), textRel, partyRTFriends, NumberOfRetweeters, targetPercentage))
+    # 24th September 2021    partySeeds.append(setHittingProblem.findTheBestCombo(relativePop.sort_values(by=textRel, ascending=False).head(numberOfFriendsToSelectFrom), textRel, partyRTFriends, NumberOfRetweeters, targetPercentage))
+
     #    SeedValidationList.append(relativePop.sort_values(by=textRel, ascending=False)['id'])
     #return validateSeed(list(set(parties)), SeedValidationList, db, NumberOfRetweeters)
     return partySeeds

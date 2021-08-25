@@ -35,7 +35,8 @@ def findTheBestCombo(df, parties, partyRTFriendsDF, reTweeterLen, targetPercenta
     costCoverDic = {}
     ref = 0
     for i in combos:
-        print('At Combo level')
+
+        print('At Combo level.')
         for j in i:
             cost = 0
             ref = ref + 1

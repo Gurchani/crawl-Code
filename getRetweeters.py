@@ -26,14 +26,17 @@ def Retweeters(tweet):
         TwitterClient = connectToTwitter.connect3()
 
 def TimeRemaining(response):
-    print(response)
-    limit = int(response.get("x-rate-limit-limit"))
-    remaining = int(response.get("x-rate-limit-remaining"))
-    timeToReset = int(response.get("x-rate-limit-reset"))
+    try:
+        print(response)
+        limit = int(response.get("x-rate-limit-limit"))
+        remaining = int(response.get("x-rate-limit-remaining"))
+        timeToReset = int(response.get("x-rate-limit-reset"))
 
-    if remaining/limit > 0.1:
-        return True
-    else:
+        if remaining / limit > 0.1:
+            return True
+        else:
+            return False
+    except:
         return False
 
 import connectToTwitter

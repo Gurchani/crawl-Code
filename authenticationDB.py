@@ -12,7 +12,7 @@ def create_connection(db_file):
         if conn:
             return conn
 
-authentication = create_connection("/Users/anr-dis-covid/Desktop/sqlite/db/AuthenticationJune2021.db")
+authentication = create_connection("E:\Twitter Country Data\AuthenticationJune2021.db")
 
 createAuthenticationDb = ('Create table IF NOT EXISTS authentication (CONSUMER_KEY Text,'
                           'CONSUMER_SECRET Text, ACCESS_KEY Text, ACCESS_SECRET)')

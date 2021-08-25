@@ -15,13 +15,14 @@ def create_connection(db_file):
         if conn:
             return conn
 
-connection = create_connection("C:\sqlite\db\Pakistan.db")
+connection = create_connection("E:\Twitter Country Data\SWEDEN2.db")
 
-Query = ('select distinct UserId from PakistancompleteGraph')
+Query = ('SELECT FriendId, count(*) as freq FROM KDretweeterFriends group by FriendId order by freq desc')
 count = 0
 for i in connection.execute(Query):
     count = count + 1
-    print(i[0])
+    print(i)
+
 print('Number of Values returned')
 print(count)
 
