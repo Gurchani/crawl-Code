@@ -8,7 +8,7 @@ import  insertIntoDb
 apiVersion1Call = 'https://api.twitter.com/1.1/friends/ids.json'
 
 def getUsers(party, db):
-    Query = 'Select distinct FollowerId from ' + party + 'seedFollowers where FollowerId not in (select distict UserId from '+party+'Friends)'
+    Query = 'Select distinct FollowerId from ' + party + 'seedFollowers where FollowerId not in (select distinct UserId from '+party+'Friends)'
     listToReturn = []
     for k in db.execute(Query):
         listToReturn.append(k[0])

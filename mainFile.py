@@ -30,9 +30,9 @@ print("Retweeters Collected")
 print("Retweeters Processed")
 #crawlFriends.crawl(list(set(parties)), db, retweetersLimit) #Done
 print("Friends Crawled")
-SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit, 0.90, 50) #Done
+#SeedProfiles = seedSelection.selectSeed(list(set(parties)), db, retweetersLimit, 0.90, 50) #Done
 print("Seeds Selected")
-crawlFollowers.getFollowers(SeedProfiles, parties, db) #Tested Once
+#crawlFollowers.getFollowers(SeedProfiles, parties, db) #Tested Once
 print("Followers Collected")
 crawlFriends2ndTime.crawl(parties, db) #Tested Once
 print("Friends Collected Second Time")

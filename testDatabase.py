@@ -17,7 +17,7 @@ def create_connection(db_file):
 
 connection = create_connection("E:\Twitter Country Data\SWEDEN2.db")
 
-Query = ('SELECT FriendId, count(*) as freq FROM KDretweeterFriends group by FriendId order by freq desc')
+Query = ('SELECT * from SretweeterFriends')
 count = 0
 for i in connection.execute(Query):
     count = count + 1
